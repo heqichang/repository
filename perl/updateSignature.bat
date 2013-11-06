@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 
 set DA_PATH=E:\vstfbing\Multimedia\DA
 REM ==== Find Visual Studio 2012 (11.0) installation dir ====
@@ -30,7 +31,7 @@ set version_file="version.txt"
 if exist %model_file% (
     "%TF_EXE%" get %prod_model_file% /overwrite
     fc %model_file% %prod_model_file% > nul
-    if %errorlevel% == 0 goto :EOF
+    if !errorlevel! == 0 goto :EOF
     "%TF_EXE%" checkout %prod_model_file%
     copy  %model_file% %prod_model_file%
     "%TF_EXE%" checkin %prod_model_file% /comment:"auto update signature" /override:"auto update signature" /notes:"Code Reviewer"="me" /noprompt
