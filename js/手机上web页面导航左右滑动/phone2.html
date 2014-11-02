@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="main">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #parent {
+            /*float: left;*/
+            overflow-x: hidden;
+            width:100%;
+            height: 500px;
+            background-color: #ffff00;
+            white-space: nowrap;
+        }
+
+
+        .content {
+            text-align: center;
+            font-size: 5em;
+            display: inline-block;
+            /*float: left;*/
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin: 20px;
+            /*transform: translate(120px, 120px);*/
+            /*-webkit-transform: translate(50px, 120px);*/
+        }
+    </style>
+</head>
+<body ng-controller="mainController">
+
+<div id="parent">
+    <div class="content">
+        1
+    </div>
+    <div class="content">
+        2
+    </div>
+    <div class="content">
+        3
+    </div>
+    <div class="content">
+        4
+    </div>
+    <div class="content">
+        5
+    </div>
+    <div class="content">
+        6
+    </div>
+    <div class="content">
+        7
+    </div>
+    <div class="content">
+        8
+    </div>
+    <div class="content">
+        9
+    </div>
+    <div class="content">
+        10
+    </div>
+    <div class="content">
+        11
+    </div>
+</div>
+<script src="assets/js/jquery-1.10.2.min.js"></script>
+<script src="assets/js/angular.js"></script>
+<script src="assets/js/angular-touch.js"></script>
+<script type="text/javascript">
+
+    var app = angular.module('main', ['ngTouch']);
+    app.controller('mainController', ['$scope', '$swipe', function($scope, $swipe){
+        var parent = angular.element('#parent');
+        var startX, X, endX = 0;
+        $swipe.bind(parent, {
+            'start': function(coords) {
+                startX = coords.x;
+                console.log('start: ' + startX);
+            },
+            'move': function(coords) {
+                var delta = coords.x - startX;
+                console.log('delta: ' + delta);
+
+                parent.scrollLeft(endX - delta);
+
+                console.log('end: ' + endX);
+
+            },
+            'end': function(coords) {
+                endX = parent.scrollLeft();
+            }
+        })
+
+
+    }]);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #parent {
+            /*float: left;*/
+            overflow-x: hidden;
+            width:100%;
+            height: 500px;
+            background-color: #ffff00;
+            white-space: nowrap;
+        }
+
+
+        .content {
+            text-align: center;
+            font-size: 5em;
+            display: inline-block;
+            /*float: left;*/
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin: 20px;
+            /*transform: translate(120px, 120px);*/
+            /*-webkit-transform: translate(50px, 120px);*/
+        }
+    </style>
+</head>
+<body>
+<div id="parent">
+    <div class="content">
+1
+    </div>
+    <div class="content">
+2
+    </div>
+    <div class="content">
+3
+    </div>
+    <div class="content">
+4
+    </div>
+    <div class="content">
+5
+    </div>
+    <div class="content">
+6
+    </div>
+    <div class="content">
+7
+    </div>
+    <div class="content">
+8
+    </div>
+    <div class="content">
+9
+    </div>
+    <div class="content">
+10
+    </div>
+    <div class="content">
+        11
+    </div>
+</div>
+<script type="text/javascript">
+    var startX, startY, X, Y, endX = 0, endY;
+    var content = document.getElementById('content');
+
+    function touchStartFunc(e) {
+        console.log('start');
+        var touch = e.touches[0];
+        startX = touch.pageX;
+        startY = touch.pageY;
+
+        console.log('start X: ' + startX + ' Y: ' + startY);
+    }
+
+    function touchMoveFunc(e) {
+
+        var touch = e.touches[0];
+        X = touch.pageX - startX;
+        Y = touch.pageY - startY;
+
+        var parent = document.getElementById('parent');
+        console.log('X:' + X + ' Y:' + Y);
+        console.log("left: " + parent.scrollLeft);
+        document.getElementById('parent').scrollLeft = endX - X;
+    }
+
+    function touchEndFunc(e) {
+
+        var parent = document.getElementById('parent');
+        endX = parent.scrollLeft;
+
+        console.log('end');
+    }
+
+    document.getElementById("parent").addEventListener('touchstart', touchStartFunc, false);
+    document.getElementById("parent").addEventListener('touchmove', touchMoveFunc, false);
+    document.getElementById("parent").addEventListener('touchend', touchEndFunc, false);
+
+</script>
+</body>
+</html>
